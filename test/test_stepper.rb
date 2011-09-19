@@ -104,6 +104,28 @@ class TestStepper < Test::Unit::TestCase
       assert_equal @order.next_step, nil
     end
 
+    context "validations" do
+      setup do
+        @order = Company.new
+      end
+
+      should "validate step1" do
+        m = Module.new do
+          def validate_step1
+            self.validates_presence_of :name
+          end
+        end
+
+        @order.extend m
+
+        @order.my_step = "step1"
+
+        assert !@order.save
+        assert_equal @order.errors.messages, {:name=>["can't be blank"]}
+
+      end
+    end
+
   end
 
 

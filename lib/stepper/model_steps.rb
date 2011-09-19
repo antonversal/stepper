@@ -2,6 +2,7 @@ module Stepper
   module ModelSteps
     def self.included(base)
       base.send(:include, InstanceMethods)
+      base.validate :current_step_validation
     end
 
     module InstanceMethods
@@ -38,6 +39,15 @@ module Stepper
         return nil if self.last_step?
         stepper_steps[stepper_steps.index(stepper_current_step) + 1]
       end
+
+      protected
+
+        def current_step_validation
+          return if stepper_current_step.blank?
+          for i in 0..stepper_steps.index(stepper_current_step) do
+            self.send("validate_#{stepper_steps[i]}")
+          end
+        end
 
     end
   end
