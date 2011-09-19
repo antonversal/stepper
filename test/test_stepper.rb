@@ -64,6 +64,30 @@ class TestStepper < Test::Unit::TestCase
       assert_equal @order.steps, ["step1", "step2", "step3"]
     end
 
+    should "check step is first" do
+      assert @order.first_step?("step1")
+      assert !@order.first_step?("step3")
+    end
+
+    should "check step is last" do
+      assert @order.last_step?("step3")
+      assert !@order.last_step?("step1")
+    end
+
+    should "check step is first" do
+      @order.my_step = "step1"
+      assert @order.first_step?
+      @order.my_step = "step3"
+      assert !@order.first_step?
+    end
+
+    should "check current step is last" do
+      @order.my_step = "step3"
+      assert @order.last_step?
+      @order.my_step = "step1"
+      assert !@order.last_step?
+    end
+
   end
 
 
