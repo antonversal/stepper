@@ -12,6 +12,7 @@ require 'active_record/fixtures'
 require 'test/unit'
 require 'shoulda'
 require 'stepper'
+require 'ruby-debug'
 
 FIXTURES_PATH = File.join(File.dirname(__FILE__), 'fixtures')
 
