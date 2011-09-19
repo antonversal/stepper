@@ -17,8 +17,8 @@ Jeweler::Tasks.new do |gem|
   gem.name = "stepper"
   gem.homepage = "http://github.com/anton.versal/stepper"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{Rails 3 solution for multistep forms}
+  gem.description = %Q{Stepper offers the ability to build multistep form with different validations for each step.}
   gem.email = "ant.ver@gmail.com"
   gem.authors = ["Anton Versal"]
   # dependencies defined in Gemfile
