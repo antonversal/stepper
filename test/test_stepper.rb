@@ -49,15 +49,17 @@ class TestStepper < Test::Unit::TestCase
       end
       assert_equal Order._stepper_steps, ["step1", "step2"]
     end
-
   end
 
-  context "class instance" do
+  context "Company class instance" do
     setup do
-      class Order < ActiveRecord::Base
-        has_steps :current_step_column => :my_step, :steps => ["step1", "step2", "step3"]
-      end
+      @order = Company.new
     end
+
+    should "have steeper_steps methods" do
+      assert_equal @order.stepper_steps, ["step1", "step2", "step3"]
+    end
+
   end
 
 

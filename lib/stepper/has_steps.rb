@@ -1,4 +1,6 @@
-require 'stepper/exceptions'
+require "stepper/exceptions"
+require "stepper/model_steps"
+
 class << ActiveRecord::Base
   def has_steps(options = {})
     #check options
@@ -17,5 +19,7 @@ class << ActiveRecord::Base
 
     class_attribute :_stepper_steps
     self._stepper_steps= options[:steps]
+
+    include Stepper::ModelSteps
   end
 end
