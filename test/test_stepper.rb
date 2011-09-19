@@ -122,7 +122,31 @@ class TestStepper < Test::Unit::TestCase
 
         assert !@order.save
         assert_equal @order.errors.messages, {:name=>["can't be blank"]}
+      end
 
+      should "validate step 3 and previous steps" do
+        m = Module.new do
+          def validate_step1
+            self.validates_presence_of :name
+          end
+
+          def validate_step2
+            self.validates_numericality_of :code
+          end
+
+          def validate_step3
+            self.validates_presence_of :city
+          end
+        end
+
+        @order.extend m
+
+        @order.my_step = "step3"
+
+        assert !@order.save
+        assert_equal @order.errors.messages, {:name => ["can't be blank"],
+                                              :code => ["is not a number"],
+                                              :city => ["can't be blank"]}
       end
     end
 
