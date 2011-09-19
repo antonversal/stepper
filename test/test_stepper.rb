@@ -88,6 +88,22 @@ class TestStepper < Test::Unit::TestCase
       assert !@order.last_step?
     end
 
+    should "return previous step" do
+      assert_equal @order.previous_step, nil
+      @order.my_step = "step1"
+      assert_equal @order.previous_step, nil
+      @order.my_step = "step2"
+      assert_equal @order.previous_step, "step1"
+    end
+
+    should "return next step" do
+      assert_equal @order.next_step, "step1"
+      @order.my_step = "step2"
+      assert_equal @order.next_step, "step3"
+      @order.my_step = "step3"
+      assert_equal @order.next_step, nil
+    end
+
   end
 
 

@@ -20,12 +20,23 @@ module Stepper
         self.send(self.class._stepper_current_step_column, step)
       end
 
-      def last_step?(step = self.stepper_current_step)
+      def last_step?(step = stepper_current_step)
         step == self.stepper_steps.last
       end
 
-      def first_step?(step = self.stepper_current_step)
+      def first_step?(step = stepper_current_step)
         (step == stepper_steps.first) or stepper_current_step.blank? && step.blank?
+      end
+
+      def previous_step
+        return nil if (first_step? or stepper_current_step.blank?)
+        stepper_steps[stepper_steps.index(stepper_current_step) - 1]
+      end
+
+      def next_step
+        return stepper_steps.first if self.stepper_current_step.blank?
+        return nil if self.last_step?
+        stepper_steps[stepper_steps.index(stepper_current_step) + 1]
       end
 
     end
