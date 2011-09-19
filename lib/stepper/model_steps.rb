@@ -10,6 +10,8 @@ module Stepper
         self.class._stepper_steps
       end
 
+      alias_method(:steps, :stepper_steps) unless self.respond_to? :steps
+
     end
   end
 end

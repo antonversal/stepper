@@ -60,6 +60,10 @@ class TestStepper < Test::Unit::TestCase
       assert_equal @order.stepper_steps, ["step1", "step2", "step3"]
     end
 
+    should "have steps methods if steps method is free" do
+      assert_equal @order.steps, ["step1", "step2", "step3"]
+    end
+
   end
 
 
