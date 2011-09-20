@@ -18,7 +18,7 @@ module Stepper
       end
 
       def stepper_current_step=(step)
-        self.send(self.class._stepper_current_step_column, step)
+        self.send("#{self.class._stepper_current_step_column}=", step)
       end
 
       def last_step?(step = stepper_current_step)
@@ -34,10 +34,18 @@ module Stepper
         stepper_steps[stepper_steps.index(stepper_current_step) - 1]
       end
 
+      def previous_step!
+        self.stepper_current_step = self.previous_step
+      end
+
       def next_step
         return stepper_steps.first if self.stepper_current_step.blank?
         return nil if self.last_step?
         stepper_steps[stepper_steps.index(stepper_current_step) + 1]
+      end
+
+      def next_step!
+        self.stepper_current_step = self.next_step
       end
 
       protected

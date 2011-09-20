@@ -104,6 +104,17 @@ class TestStepper < Test::Unit::TestCase
       assert_equal @order.next_step, nil
     end
 
+    should "next_step! change step" do
+      @order.next_step!
+      assert_equal @order.my_step, "step1"
+    end
+
+    should "previous_step! change step" do
+      @order.my_step = "step3"
+      @order.previous_step!
+      assert_equal @order.my_step, "step2"
+    end
+
     context "validations" do
       setup do
         @order = Company.new
@@ -169,6 +180,8 @@ class TestStepper < Test::Unit::TestCase
           @order.save!
         end
       end
+
+
     end
 
   end
