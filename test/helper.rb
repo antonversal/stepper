@@ -31,10 +31,27 @@ end
 
 #ActiveRecord::Fixtures.create_fixtures(FIXTURES_PATH, ActiveRecord::Base.connection.tables)
 
+ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
+
+Stepper::Routes = ActionDispatch::Routing::RouteSet.new
+Stepper::Routes.draw do
+  resources 'companies' do
+    get :next_step, :on => :member
+  end
+  root :to => 'countries#index'
+end
+
+ActionController::Base.send :include, Stepper::Routes.url_helpers
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 
 class Test::Unit::TestCase
+end
+
+class ActiveSupport::TestCase
+  setup do
+    @routes = Stepper::Routes
+  end
 end
