@@ -148,6 +148,27 @@ class TestStepper < Test::Unit::TestCase
                                               :code => ["is not a number"],
                                               :city => ["can't be blank"]}
       end
+
+      should "not run method if it doesn't exists" do
+         m = Module.new do
+          def validate_step1
+            self.validates_presence_of :name
+          end
+
+          def validate_step3
+            self.validates_presence_of :city
+          end
+        end
+
+        @order.extend m
+        @order.name = "name"
+        @order.city = "Kiev"
+        @order.my_step = "step3"
+
+        assert_nothing_raised NoMethodError do
+          @order.save!
+        end
+      end
     end
 
   end
