@@ -43,7 +43,7 @@ class CompaniesCreateControllerTest < ActionController::TestCase
   end
 
   def test_next_step
-    post(:create, {:company => {:name => "Hina"}, :commit => "Next"})
+    post(:create, {:company => {:name => "Hina"}, :commit => "Next step"})
     assert_response :redirect
     assert_redirected_to "http://test.host/companies/1/next_step"
   end
@@ -74,7 +74,7 @@ class CompaniesUpdateControllerTest < ActionController::TestCase
   end
 
   def test_next_step
-    put(:update, {:company => {:code => "23"}, :commit => "Next", :id => 1})
+    put(:update, {:company => {:code => "23"}, :commit => "Next step", :id => 1})
     assert_response :redirect
     assert_redirected_to "http://test.host/companies/1/next_step"
   end
