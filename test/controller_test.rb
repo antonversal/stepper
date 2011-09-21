@@ -20,6 +20,13 @@ class CompaniesControllerTest < ActionController::TestCase
     end
   end
 
+  def test_next_step
+    Company.expects(:find).with('1').returns(mock_company)
+    get :next_step, :id => 1
+    assert_response :success
+    assert_equal assigns(:company), mock_company
+  end
+
   protected
     def mock_company(stubs={})
       @mock_company ||= mock(stubs)

@@ -25,6 +25,10 @@ module Stepper
         end
       end
 
+      def next_step
+        instance_variable_set "@#{name_from_controller}", resource_class.find(params[:id])
+      end
+
       private
         def name_from_controller
           params[:controller].sub("Controller", "").underscore.split('/').last.singularize
