@@ -120,6 +120,11 @@ class StepperTest < Test::Unit::TestCase
         @order = Company.new
       end
 
+      should "validate presence of current step column" do
+        assert !@order.save
+        assert_equal @order.errors.messages, {:my_step => ["can't be blank"]}
+      end
+
       should "validate step1" do
         m = Module.new do
           def validate_step1

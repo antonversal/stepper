@@ -3,6 +3,7 @@ module Stepper
     def self.included(base)
       base.send(:include, InstanceMethods)
       base.validate :current_step_validation
+      base.validates_presence_of base._stepper_current_step_column
     end
 
     module InstanceMethods
