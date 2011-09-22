@@ -1,6 +1,5 @@
 require "stepper/exceptions"
 require "stepper/model_steps"
-require "stepper/controller_steps"
 
 class << ActiveRecord::Base
   def has_steps(options = {})
@@ -29,6 +28,6 @@ class << ActionController::Base
   def has_steps(options = {})
     #check options
     raise Stepper::StepperException.new("Options for has_steps must be in a hash.") unless options.is_a? Hash
-    include Stepper::ControllerSteps
+    #include Stepper::ControllerSteps
   end
 end
