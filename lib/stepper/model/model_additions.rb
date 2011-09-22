@@ -1,9 +1,35 @@
 module Stepper
-  module ModelSteps
+  module ModelAdditions
+
     def self.included(base)
-      base.send(:include, InstanceMethods)
+      base.extend ClassMethods
       base.validate :current_step_validation
-      base.validates_presence_of base._stepper_current_step_column
+      #base.validates_presence_of base._stepper_current_step_column
+    end
+
+    module ClassMethods
+      def has_steps(options = {})
+        #check options
+        raise Stepper::StepperException.new("Options for has_steps must be in a hash.") unless options.is_a? Hash
+        options.each do |key, value|
+          unless [:current_step_column, :steps].include? key
+            raise Stepper::StepperException.new("Unknown option for has_steps: #{key.inspect} => #{value.inspect}.")
+          end
+        end
+
+        raise Stepper::StepperException.new(":steps condition can't be blank") if options[:steps].blank?
+
+        #set current step column
+        class_attribute :_stepper_current_step_column
+        self._stepper_current_step_column = options[:current_step_column] || :current_step
+
+        validates_presence_of self._stepper_current_step_column
+
+        class_attribute :_stepper_steps
+        self._stepper_steps= options[:steps]
+
+        include InstanceMethods
+      end
     end
 
     module InstanceMethods
@@ -59,5 +85,11 @@ module Stepper
         end
 
     end
+  end
+end
+
+if defined? ActiveRecord
+  ActiveRecord::Base.class_eval do
+    include Stepper::ModelAdditions
   end
 end
