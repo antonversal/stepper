@@ -1,6 +1,6 @@
 require 'helper'
 
-class StepperTest < Test::Unit::TestCase
+class ModelStepsTest < Test::Unit::TestCase
 
   context "ActiveRecord" do
 
