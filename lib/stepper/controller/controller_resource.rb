@@ -4,7 +4,9 @@ module Stepper
     def self.add_before_filter(controller_class, *args)
       resource_name = args.first
       controller_class.send(:before_filter, :only => [:create, :update, :next_step]) do |controller|
-        controller.class.stepper_resource_class.new(controller, resource_name).load_resource
+        controller_resource = controller.class.stepper_resource_class.new(controller, resource_name)
+        controller.instance_variable_set :@_stepper_resource_instance, controller_resource.load_resource
+        controller.instance_variable_set :@_stepper_name, controller_resource.name
       end
     end
 
@@ -20,10 +22,12 @@ module Stepper
 
     def load_resource_instance
       if @params[:action] == 'create'
-        resource_class.new(@params[name] || {})
+        resource = resource_class.new(@params[name] || {})
       else
-        resource_class.find(@params[:id])
+        resource = resource_class.find(@params[:id])
+        resource.attributes = @params[name] || {} unless @params[name].blank?
       end
+      resource
     end
 
     def resource_class

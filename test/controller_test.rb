@@ -1,8 +1,5 @@
 require 'helper'
-require 'mocha'
-
-require "stepper/has_steps"
-
+require 'action_controller'
 
 class CompaniesController < ActionController::Base
   has_steps
@@ -24,6 +21,12 @@ class CompaniesControllerTest < ActionController::TestCase
     Company.expects(:find).with('1').returns(mock_company)
     get :next_step, :id => 1
     assert_response :success
+    assert_equal assigns(:company), mock_company
+  end
+
+  def test_getting_existing_assigns
+    @controller.instance_variable_set(:@company, mock_company)
+    get :next_step, :id => 1
     assert_equal assigns(:company), mock_company
   end
 
@@ -55,7 +58,6 @@ class CompaniesCreateControllerTest < ActionController::TestCase
     assert_equal flash[:notice], "Step Step1 was successfully created."
     assert_redirected_to "http://test.host/companies"
   end
-
 
   protected
   def mock_company(stubs={})

@@ -1,5 +1,5 @@
 require 'helper'
-require 'stepper/controller_resource'
+
 class ControllerResourceTest < Test::Unit::TestCase
   context "load resource" do
     setup do
