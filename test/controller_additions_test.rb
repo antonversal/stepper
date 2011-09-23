@@ -5,7 +5,6 @@ class ControllerAdditionsTest < Test::Unit::TestCase
     setup do
       @controller_class = Class.new
       @controller = @controller_class.new
-      @controller_class.stubs(:helper_method).with(:save_commit_str, :next_step_commit_str, :previous_step_commit_str)
       @controller_class.send(:include, Stepper::ControllerAdditions)
     end
 
