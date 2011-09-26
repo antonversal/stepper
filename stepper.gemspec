@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stepper}
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Anton Versal}]
@@ -32,6 +32,7 @@ Gem::Specification.new do |s|
     "lib/stepper/exceptions.rb",
     "lib/stepper/helper/action_view_additions.rb",
     "lib/stepper/model/model_additions.rb",
+    "stepper.gemspec",
     "test/controller_additions_test.rb",
     "test/controller_resource_test.rb",
     "test/controller_test.rb",
