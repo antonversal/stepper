@@ -1,9 +1,10 @@
 require 'active_record'
 require 'action_controller'
 require 'active_support'
+require 'action_view'
 
 require 'stepper/controller/controller_additions'
 require 'stepper/controller/controller_resource'
 require 'stepper/exceptions'
 require 'stepper/model/model_additions'
-require 'stepper/helper/fields'
+require 'stepper/helper/action_view_additions'
