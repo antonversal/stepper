@@ -2,8 +2,10 @@ module Stepper
   module ActionViewAdditions
     module InstanceMethods
       def stepper(form)
-        Stepper::Fields.new(self, form).to_s
+        self.render :partial => "stepper/fields", :locals => {:f => form}
       end
     end
   end
 end
+
+ActionView::Base.send :include, Stepper::ActionViewAdditions::InstanceMethods
