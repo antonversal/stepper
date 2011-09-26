@@ -1,0 +1,9 @@
+<%= f.hidden_field @_stepper_resource_instance.class._stepper_current_step_column, :input_html => {:value => @_stepper_resource_instance.next_step} %>
+<%= render "#{@_stepper_resource_instance.next_step}_step", :f => f %>
+
+<ul class="stepper actions">
+  <li class="first save"><%= f.submit :value => t('stepper.save').html_safe? %></li>
+  <li class="previous_step"><%= f.submit :value => t('stepper.previous_step').html_safe unless @_stepper_resource_instance.first_step?(@_stepper_resource_instance.next_step) %></li>
+  <li class="last next_step"><%= f.submit :value => t('stepper.next_step').html_safe unless @_stepper_resource_instance.last_step?(@_stepper_resource_instance.next_step) %></li>
+</ul>
+
