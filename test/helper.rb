@@ -31,8 +31,6 @@ end
 I18n.load_path << File.join(File.dirname(__FILE__), 'locales', 'en.yml')
 I18n.reload!
 
-#ActiveRecord::Fixtures.create_fixtures(FIXTURES_PATH, ActiveRecord::Base.connection.tables)
-
 ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
 
 Stepper::Routes = ActionDispatch::Routing::RouteSet.new
