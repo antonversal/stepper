@@ -36,7 +36,7 @@ module Stepper
         end
       end
 
-      def next_step
+      def new
       end
 
       protected
@@ -45,9 +45,9 @@ module Stepper
           if params[:commit] == t('stepper.save').html_safe
             redirect_to url_for(sanitized_params.merge(:action => "index")), :notice => "Step #{@_stepper_resource_instance.current_step.humanize} was successfully created."
           elsif params[:commit] == t('stepper.previous_step').html_safe and params[:action] == "update"
-            redirect_to url_for(sanitized_params.merge(:action => "next_step", :id => @_stepper_resource_instance.id))
+            redirect_to url_for(sanitized_params.merge(:action => "new", :id => @_stepper_resource_instance.id))
           elsif params[:commit] == t('stepper.next_step').html_safe
-            redirect_to url_for(sanitized_params.merge(:action => "next_step", :id => @_stepper_resource_instance.id))
+            redirect_to url_for(sanitized_params.merge(:action => "new", :id => @_stepper_resource_instance.id))
           else
             raise Stepper::StepperException.new("Unknown commit: #{params[:commit]}")
           end
@@ -60,11 +60,4 @@ module Stepper
 
   end
 
-end
-
-
-if defined? ActionController
-  ActionController::Base.class_eval do
-    include Stepper::ControllerAdditions
-  end
 end
