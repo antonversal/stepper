@@ -1,3 +1,4 @@
+ENV["RAILS_ENV"] = "test"
 require 'rubygems'
 require 'bundler'
 begin
@@ -11,47 +12,7 @@ end
 require 'test/unit'
 require 'shoulda'
 require 'stepper'
-require 'ruby-debug'
+require "rails_app/config/environment"
+require "rails/test_help"
 
-FIXTURES_PATH = File.join(File.dirname(__FILE__), 'fixtures')
-
-ActiveRecord::Base.establish_connection(
-  :adapter  => 'sqlite3',
-  :database => ':memory:'
-)
-
-dep = defined?(ActiveSupport::Dependencies) ? ActiveSupport::Dependencies : ::Dependencies
-dep.autoload_paths.unshift FIXTURES_PATH
-
-ActiveRecord::Base.silence do
-  ActiveRecord::Migration.verbose = false
-  load File.join(FIXTURES_PATH, 'schema.rb')
-end
-
-I18n.load_path << File.join(File.dirname(__FILE__), 'locales', 'en.yml')
-I18n.reload!
-
-ActionController::Base.view_paths = File.join(File.dirname(__FILE__), 'views')
-
-Stepper::Routes = ActionDispatch::Routing::RouteSet.new
-Stepper::Routes.draw do
-  resources 'companies' do
-    get :next_step, :on => :member
-  end
-  root :to => 'countries#index'
-end
-
-ActionController::Base.send :include, Stepper::Routes.url_helpers
-
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
-$LOAD_PATH.unshift(File.dirname(__FILE__))
-
-
-class Test::Unit::TestCase
-end
-
-class ActiveSupport::TestCase
-  setup do
-    @routes = Stepper::Routes
-  end
-end
+ActiveRecord::Migrator.migrate(File.expand_path("../rails_app/db/migrate/", __FILE__))
