@@ -1,5 +1,5 @@
 module Stepper
-  module ModelAdditions
+  module ActiveRecordAdditions
 
     def self.included(base)
       base.extend ClassMethods
@@ -84,11 +84,5 @@ module Stepper
         end
 
     end
-  end
-end
-
-if defined? ActiveRecord
-  ActiveRecord::Base.class_eval do
-    include Stepper::ModelAdditions
   end
 end
