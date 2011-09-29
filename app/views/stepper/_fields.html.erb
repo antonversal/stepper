@@ -1,5 +1,5 @@
 <div class="stepper">
-  <%= f.hidden_field current_step_column, :input_html => {:value => resource.next_step} %>
+  <%= f.hidden_field current_step_column, :value => resource.next_step %>
   <%= render "#{resource.next_step}_step", :f => f %>
 
   <ul class="actions">
