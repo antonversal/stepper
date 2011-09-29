@@ -13,6 +13,7 @@ class CompaniesControllerTest < ActionController::TestCase
   end
 
   test "should assign resource if params[:id] exists" do
+    @controller.expects(:render)
     Company.expects(:find).with('1').returns(mock_company)
     get :new, :id => 1
     assert_response :success
@@ -20,6 +21,7 @@ class CompaniesControllerTest < ActionController::TestCase
   end
 
   test "should get existing assigns" do
+    @controller.expects(:render)
     @controller.instance_variable_set(:@company, mock_company)
     get :new, :id => 1
     assert_equal assigns(:company), mock_company
@@ -101,13 +103,16 @@ end
 class CompaniesInvalidParamsControllerTest < ActionController::TestCase
   tests CompaniesController
 
-  test "should create action redirect to new action if object.save returns false" do
+  setup do
+    @controller.expects(:render).at_least_once
+  end
+
+  test "should create action render to new action if object.save returns false" do
     Company.expects(:new).with({'name' => 'Hina'}).returns(mock_company)
     mock_company.expects(:save).returns(false)
     mock_company.expects(:previous_step!)
     post(:create, {:company => {:name => "Hina"}, :commit => "Next step"})
     assert_response :success
-    assert_template "new"
   end
 
   test "should update action redirect to new action if object.save returns false" do
@@ -117,7 +122,6 @@ class CompaniesInvalidParamsControllerTest < ActionController::TestCase
     mock_company.expects(:previous_step!)
     post(:update, {:company => {:name => "Hina"}, :id => 1, :commit => "Next step"})
     assert_response :success
-    assert_template "new"
   end
 
   protected
