@@ -79,7 +79,7 @@ module Stepper
         def current_step_validation
           return if stepper_current_step.blank?
           for i in 0..stepper_steps.index(stepper_current_step) do
-            self.send("validate_#{stepper_steps[i]}") if self.respond_to?("validate_#{stepper_steps[i]}")
+            self.send("validate_#{stepper_steps[i]}") if self.respond_to?("validate_#{stepper_steps[i]}", true)
           end
         end
 
