@@ -94,6 +94,12 @@ class CompaniesUpdateControllerTest < ActionController::TestCase
     assert_redirected_to "http://test.host/companies/new?id=1"
   end
 
+  test "should redirect to show if commit 'Finish form'" do
+    put(:update, {:company => {:code => "23"}, :commit => "Finish form", :id => 1})
+    assert_response :redirect
+    assert_redirected_to "http://test.host/companies/1"
+  end
+
   protected
   def mock_company(stubs={})
     @mock_company ||= mock(stubs)
