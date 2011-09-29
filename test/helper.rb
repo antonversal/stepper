@@ -10,6 +10,7 @@ rescue Bundler::BundlerError => e
 end
 
 require 'test/unit'
+require 'ruby-debug'
 require 'shoulda'
 require 'stepper'
 require "rails_app/config/environment"
