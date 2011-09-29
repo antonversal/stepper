@@ -19,7 +19,7 @@ module Stepper
       end
 
       ActiveSupport.on_load(:action_view) do
-        ::ActionView::Base.send :include, Stepper::ActionViewAdditions
+        ::ActionView::Base.send :include, Stepper::ActionViewAdditions::InstanceMethods
       end
     end
   end
