@@ -1,8 +1,8 @@
 require 'rails'
 
 require 'stepper/engine'
-require 'stepper/controller/controller_additions'
-require 'stepper/controller/controller_resource'
+require 'stepper/controllers/controller_additions'
+require 'stepper/controllers/controller_resource'
 require 'stepper/exceptions'
 require 'stepper/models/active_record_additions'
 require 'stepper/helper/action_view_additions'

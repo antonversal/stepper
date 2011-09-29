@@ -24,8 +24,12 @@ module Stepper
       if @params[:action] == 'create'
         resource = resource_class.new(@params[name] || {})
       else
-        resource = resource_class.find(@params[:id])
-        resource.attributes = @params[name] || {} unless @params[name].blank?
+        resource = unless @params[:id].blank?
+          resource_class.find(@params[:id])
+        else
+          resource_class.new
+        end
+        resource.attributes = @params[name] unless @params[name].blank?
       end
       resource
     end

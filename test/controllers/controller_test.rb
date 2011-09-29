@@ -1,9 +1,4 @@
 require 'helper'
-require 'action_controller'
-
-class CompaniesController < ActionController::Base
-  has_steps
-end
 
 class CompaniesControllerTest < ActionController::TestCase
   tests CompaniesController
@@ -19,14 +14,14 @@ class CompaniesControllerTest < ActionController::TestCase
 
   def test_next_step
     Company.expects(:find).with('1').returns(mock_company)
-    get :next_step, :id => 1
+    get :new, :id => 1
     assert_response :success
     assert_equal assigns(:company), mock_company
   end
 
   def test_getting_existing_assigns
     @controller.instance_variable_set(:@company, mock_company)
-    get :next_step, :id => 1
+    get :new, :id => 1
     assert_equal assigns(:company), mock_company
   end
 
@@ -48,7 +43,7 @@ class CompaniesCreateControllerTest < ActionController::TestCase
   def test_next_step
     post(:create, {:company => {:name => "Hina"}, :commit => "Next step"})
     assert_response :redirect
-    assert_redirected_to "http://test.host/companies/1/next_step"
+    assert_redirected_to "http://test.host/companies/new?id=1"
   end
 
   def test_finish_later
@@ -78,7 +73,7 @@ class CompaniesUpdateControllerTest < ActionController::TestCase
   def test_next_step
     put(:update, {:company => {:code => "23"}, :commit => "Next step", :id => 1})
     assert_response :redirect
-    assert_redirected_to "http://test.host/companies/1/next_step"
+    assert_redirected_to "http://test.host/companies/new?id=1"
   end
 
   def test_finish_later
@@ -94,7 +89,7 @@ class CompaniesUpdateControllerTest < ActionController::TestCase
     mock_company.stubs(:current_step).returns("step2")
     put(:update, {:company => {:code => "23"}, :commit => "Previous step", :id => 1})
     assert_response :redirect
-    assert_redirected_to "http://test.host/companies/1/next_step"
+    assert_redirected_to "http://test.host/companies/new?id=1"
   end
 
   protected

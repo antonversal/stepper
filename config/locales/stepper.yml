@@ -1,5 +1,5 @@
 en:
   stepper:
-    next_step: 'Next step'
-    previous_step: 'Previous step'
-    save: 'Finish later'
+    next_step: 'Next'
+    previous_step: 'Previous'
+    save: 'Save'
