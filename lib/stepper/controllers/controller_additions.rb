@@ -23,6 +23,9 @@ module Stepper
         respond_to do |format|
           if @_stepper_resource_instance.save
             format.html { redirect_steps }
+          else
+            @_stepper_resource_instance.previous_step!
+            format.html { render :action => "new" }
           end
         end
       end
@@ -32,6 +35,9 @@ module Stepper
         respond_to do |format|
           if @_stepper_resource_instance.save
             format.html { redirect_steps }
+          else
+            @_stepper_resource_instance.previous_step!
+            format.html { render :action => "new" }
           end
         end
       end
