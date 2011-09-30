@@ -15,5 +15,6 @@ require 'shoulda'
 require 'stepper'
 require "rails_app/config/environment"
 require "rails/test_help"
+require 'capybara/rails'
 
 ActiveRecord::Migrator.migrate(File.expand_path("../rails_app/db/migrate/", __FILE__))
