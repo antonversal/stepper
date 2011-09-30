@@ -1,3 +1,3 @@
-require 'rails'
+#require 'rails'
 
 require 'stepper/railtie'
