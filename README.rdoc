@@ -17,7 +17,7 @@ Setup names of steps that you want to have:
 
   has_steps :steps => %w{name city kind}
 
-Setup validation for each step if necessary, method should have name like <tt>validation_#{step_name}</tt>:
+Setup validation for each step if necessary, method should have name like <tt>validate_#{step_name}</tt>:
 
   def validate_name
     self.validates_presence_of :name
