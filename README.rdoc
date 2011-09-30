@@ -5,7 +5,7 @@ Stepper allows you to split up your large form into series of pages that users c
 == Installation
 You can use it with Rails 3:
 
-gem install stepper
+  gem install stepper
 == Getting Started
 === Configuring model
 Create migration for model:
@@ -34,14 +34,14 @@ Setup validation for each step if necessary, method should have name like "valid
 Now Your model ready for multistep form!
 === Configuring controller
 
-Stepper use `update`, `create` and `new` action.
+Stepper use +update+, +create+ and +new+ action.
 
-For controller you need just add `has_steps` method:
+For controller you need just add +has_steps+ method:
   class CompaniesController < ApplicationController
     has_steps
   end
 
-And you should have `show` action because stepper redirects to it when last step finished. It will be configurable in a feature.
+And you should have +show+ action because stepper redirects to it when last step finished. It will be configurable in a feature.
 === Configuring views
 
 Add stepper helper method into the form in view that rendered by new action:
@@ -50,19 +50,19 @@ Add stepper helper method into the form in view that rendered by new action:
     <%= stepper f %>
   <% end %>
 
-`stepper` helper renders partial according to the current step of form. Partials should have name like `#{step_name}_step`:
++stepper+ helper renders partial according to the current step of form. Partials should have name like +#{step_name}_step+:
 
-`name_step.html.erb`
++name_step.html.erb+
 
   <%= f.label :name %>
   <%= f.text_field :name %>
 
-`city_step.html.erb`
++city_step.html.erb+
 
   <%= f.label :city %>
   <%= f.text_field :city %>
 
-`kind_step.html.erb`
++kind_step.html.erb+
 
   <%= f.label :kind %>
   <%= f.text_field :kind %>
