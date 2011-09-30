@@ -17,7 +17,7 @@ Setup names of steps that you want to have:
 
   has_steps :steps => %w{name city kind}
 
-Setup validation for each step if necessary, method should have name like + validation_#{step_name} +:
+Setup validation for each step if necessary, method should have name like <tt>validation_#{step_name}</tt>:
 
   def validate_name
     self.validates_presence_of :name
@@ -42,7 +42,7 @@ For controller you need just add +has_steps+ method:
   end
 
 And you should have +show+ action because stepper redirects to it when last step finished. It will be configurable in a feature.
-=== Configuring views
+=== Configuring view
 
 Add stepper helper method into the form in view that rendered by new action:
 
@@ -50,7 +50,7 @@ Add stepper helper method into the form in view that rendered by new action:
     <%= stepper f %>
   <% end %>
 
-+stepper+ helper renders partial according to the current step of form. Partials should have name like + #{step_name}_step +:
++stepper+ helper renders partial according to the current step of form. Partials should have name like <tt>#{step_name}_step</tt>:
 
 +name_step.html.erb+
 
