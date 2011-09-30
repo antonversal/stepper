@@ -1,6 +1,71 @@
-= stepper
+= Stepper
 
-Description goes here.
+Stepper is multistep form (wizard) solution for Rails 3.
+Stepper allows you to split up your large form into series of pages that users can navigate through to complete the form and save it state.
+== Installation
+You can use it with Rails 3:
+
+gem install stepper
+== Getting Started
+=== Configuring model
+Create migration for model:
+
+add_column :companies, :current_step, :string
+add_index  :companies, :current_step
+
+Setup names of steps that you want to have:
+
+has_steps :steps => %w{name city kind}
+
+Setup validation for each step if necessary, method should have name like "validation_#{step_name}":
+
+    def validate_name
+      self.validates_presence_of :name
+    end
+
+    def validate_city
+      self.validates_presence_of :city
+    end
+
+    def validate_kind
+      self.validates_presence_of :kind
+    end
+
+Now Your model ready for multistep form!
+=== Configuring controller
+
+Stepper use :update, :create and :new action.
+
+For controller you need just add has_steps method:
+class CompaniesController < ApplicationController
+  has_steps
+end
+
+And you should have :show action because stepper redirects to it when last step finished. It will be configurable in a feature.
+=== Configuring views
+
+Add stepper helper method into the form in view that rendered by new action:
+
+<%= form_for(@company) do |f| %>
+  <%= stepper f %>
+<% end %>
+
+stepper helper renders partial according to the current step of form. Partials should have name like "#{step_name}_step":
+
+name_step.html.erb
+
+<%= f.label :name %>
+<%= f.text_field :name %>
+
+city_step.html.erb
+
+<%= f.label :city %>
+<%= f.text_field :city %>
+
+kind_step.html.erb
+
+<%= f.label :kind %>
+<%= f.text_field :kind %>
 
 == Contributing to stepper
  
