@@ -9,3 +9,5 @@ pkg
 tmtags
 .idea
 .rvmrc
+test/rails_app/tmp
+test/rails_app/log
