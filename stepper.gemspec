@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Anton Versal}]
-  s.date = %q{2011-09-29}
-  s.description = %q{Stepper offers the ability to build multistep form with different validations for each step.}
+  s.date = %q{2011-09-30}
+  s.description = %q{Stepper is multistep form (wizard) solution for Rails 3. Stepper allows you to split up your large form into series of pages that users can navigate through to complete the form and save it state.}
   s.email = %q{ant.ver@gmail.com}
   s.extra_rdoc_files = [
     "LICENSE.txt",
@@ -40,6 +40,7 @@ Gem::Specification.new do |s|
     "test/controllers/controller_test.rb",
     "test/helper.rb",
     "test/helpers/helper_test.rb",
+    "test/integration/steps_test.rb",
     "test/models/assigns_test.rb",
     "test/models/instance_test.rb",
     "test/models/models_test.rb",
@@ -55,7 +56,9 @@ Gem::Specification.new do |s|
     "test/rails_app/app/views/companies/_step1_step.html.erb",
     "test/rails_app/app/views/companies/_step2_step.html.erb",
     "test/rails_app/app/views/companies/_step3_step.html.erb",
+    "test/rails_app/app/views/companies/index.html.erb",
     "test/rails_app/app/views/companies/new.html.erb",
+    "test/rails_app/app/views/companies/show.html.erb",
     "test/rails_app/app/views/layouts/application.html.erb",
     "test/rails_app/config.ru",
     "test/rails_app/config/application.rb",
@@ -77,7 +80,6 @@ Gem::Specification.new do |s|
     "test/rails_app/db/schema.rb",
     "test/rails_app/lib/assets/.gitkeep",
     "test/rails_app/lib/tasks/.gitkeep",
-    "test/rails_app/log/test.log",
     "test/rails_app/public/404.html",
     "test/rails_app/public/422.html",
     "test/rails_app/public/500.html",
@@ -86,11 +88,11 @@ Gem::Specification.new do |s|
     "test/rails_app/public/robots.txt",
     "test/rails_app/script/rails"
   ]
-  s.homepage = %q{http://github.com/anton.versal/stepper}
+  s.homepage = %q{http://github.com/antonversal/stepper}
   s.licenses = [%q{MIT}]
   s.require_paths = [%q{lib}]
   s.rubygems_version = %q{1.8.6}
-  s.summary = %q{Rails 3 solution for multistep forms}
+  s.summary = %q{Stepper is multistep form (wizard) solution for Rails 3.}
 
   if s.respond_to? :specification_version then
     s.specification_version = 3
@@ -104,6 +106,8 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_development_dependency(%q<rcov>, [">= 0"])
       s.add_development_dependency(%q<mocha>, [">= 0"])
+      s.add_development_dependency(%q<capybara>, [">= 0"])
+      s.add_development_dependency(%q<launchy>, [">= 0"])
     else
       s.add_dependency(%q<rails>, ["~> 3.1.0"])
       s.add_dependency(%q<ruby-debug19>, [">= 0"])
@@ -113,6 +117,8 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
       s.add_dependency(%q<rcov>, [">= 0"])
       s.add_dependency(%q<mocha>, [">= 0"])
+      s.add_dependency(%q<capybara>, [">= 0"])
+      s.add_dependency(%q<launchy>, [">= 0"])
     end
   else
     s.add_dependency(%q<rails>, ["~> 3.1.0"])
@@ -123,6 +129,8 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<jeweler>, ["~> 1.6.4"])
     s.add_dependency(%q<rcov>, [">= 0"])
     s.add_dependency(%q<mocha>, [">= 0"])
+    s.add_dependency(%q<capybara>, [">= 0"])
+    s.add_dependency(%q<launchy>, [">= 0"])
   end
 end
 

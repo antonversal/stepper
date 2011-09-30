@@ -15,10 +15,10 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "stepper"
-  gem.homepage = "http://github.com/anton.versal/stepper"
+  gem.homepage = "http://github.com/antonversal/stepper"
   gem.license = "MIT"
-  gem.summary = %Q{Rails 3 solution for multistep forms}
-  gem.description = %Q{Stepper offers the ability to build multistep form with different validations for each step.}
+  gem.summary = %Q{Stepper is multistep form (wizard) solution for Rails 3.}
+  gem.description = %Q{Stepper is multistep form (wizard) solution for Rails 3. Stepper allows you to split up your large form into series of pages that users can navigate through to complete the form and save it state.}
   gem.email = "ant.ver@gmail.com"
   gem.authors = ["Anton Versal"]
   # dependencies defined in Gemfile
