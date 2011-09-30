@@ -33,6 +33,10 @@ module Stepper
 
     module InstanceMethods
 
+      def stepper_current_step_column
+        self.class._stepper_current_step_column
+      end
+
       def stepper_steps
         self.class._stepper_steps
       end
@@ -62,6 +66,7 @@ module Stepper
 
       def previous_step!
         self.stepper_current_step = self.previous_step
+        self
       end
 
       def next_step
@@ -72,6 +77,7 @@ module Stepper
 
       def next_step!
         self.stepper_current_step = self.next_step
+        self
       end
 
       protected

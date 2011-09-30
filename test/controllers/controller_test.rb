@@ -49,7 +49,7 @@ class CompaniesCreateControllerTest < ActionController::TestCase
   end
 
   test "should redirect to index if commit 'Finish later'" do
-    mock_company.stubs(:current_step).returns("step1")
+    mock_company.stubs(:stepper_current_step).returns("step1")
     post(:create, {:company => {:name => "Hina"}, :commit => "Finish later"})
     assert_response :redirect
     assert_equal flash[:notice], "Step Step1 was successfully created."
@@ -79,7 +79,8 @@ class CompaniesUpdateControllerTest < ActionController::TestCase
   end
 
   test "should redirect to index if commit 'Finish later'" do
-    mock_company.stubs(:current_step).returns("step2")
+    mock_company.stubs(:stepper_current_step).returns("step2")
+    mock_company.stubs(:previous_step!)
     put(:update, {:company => {:code => "23"}, :commit => "Finish later", :id => 1})
     assert_response :redirect
     assert_equal flash[:notice], "Step Step2 was successfully created."
@@ -87,7 +88,7 @@ class CompaniesUpdateControllerTest < ActionController::TestCase
   end
 
   test "should redirect to previous step if commit 'Previous step'" do
-    mock_company.expects(:previous_step!)
+    mock_company.expects(:previous_step!).returns(mock_company).at_least(2)
     mock_company.stubs(:current_step).returns("step2")
     put(:update, {:company => {:code => "23"}, :commit => "Previous step", :id => 1})
     assert_response :redirect

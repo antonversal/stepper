@@ -31,7 +31,11 @@ module Stepper
       end
 
       def update
-        @_stepper_resource_instance.previous_step! if params[:commit] == t('stepper.previous_step').html_safe
+
+        @_stepper_resource_instance.previous_step!.previous_step! if params[:commit] == t('stepper.previous_step').html_safe
+
+        @_stepper_resource_instance.previous_step! if params[:commit] == t('stepper.save').html_safe
+
         respond_to do |format|
           if @_stepper_resource_instance.save
             format.html { redirect_steps }
@@ -49,7 +53,7 @@ module Stepper
 
         def redirect_steps
           if params[:commit] == t('stepper.save').html_safe
-            redirect_to url_for(sanitized_params.merge(:action => "index")), :notice => "Step #{@_stepper_resource_instance.current_step.humanize} was successfully created."
+            redirect_to url_for(sanitized_params.merge(:action => "index")), :notice => "Step #{@_stepper_resource_instance.stepper_current_step.humanize} was successfully created."
           elsif params[:commit] == t('stepper.previous_step').html_safe and params[:action] == "update"
             redirect_to url_for(sanitized_params.merge(:action => "new", :id => @_stepper_resource_instance.id))
           elsif params[:commit] == t('stepper.next_step').html_safe
