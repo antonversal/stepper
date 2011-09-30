@@ -22,8 +22,6 @@ module Stepper
         class_attribute :_stepper_current_step_column
         self._stepper_current_step_column = options[:current_step_column] || :current_step
 
-        validates_presence_of self._stepper_current_step_column
-
         class_attribute :_stepper_steps
         self._stepper_steps= options[:steps]
 
@@ -39,6 +37,10 @@ module Stepper
 
       def stepper_steps
         self.class._stepper_steps
+      end
+
+      def stepper_current_step_index
+        stepper_steps.index(stepper_current_step)
       end
 
       alias_method(:steps, :stepper_steps) unless self.respond_to? :steps
@@ -84,7 +86,7 @@ module Stepper
 
         def current_step_validation
           return if stepper_current_step.blank?
-          for i in 0..stepper_steps.index(stepper_current_step) do
+          for i in 0..stepper_current_step_index do
             self.send("validate_#{stepper_steps[i]}") if self.respond_to?("validate_#{stepper_steps[i]}", true)
           end
         end

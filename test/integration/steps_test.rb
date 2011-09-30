@@ -23,6 +23,7 @@ class StepsTest < ActionController::IntegrationTest
     click_button "Previous step"
     assert page.has_selector?('label', :text => 'Name')
     assert page.has_selector?('#company_name', :value => 'My company')
+    assert page.has_no_selector?('#error_explanation')
   end
 
   test "finish later" do
@@ -32,6 +33,7 @@ class StepsTest < ActionController::IntegrationTest
     assert page.has_selector?('label', :text => 'Code')
     click_button "Finish later"
     assert_equal page.current_path, companies_path
+    assert page.has_no_selector?('#error_explanation')
   end
 
 end

@@ -4,11 +4,6 @@ class ValidationModelTest < ActiveSupport::TestCase
     @company = Company.new
   end
 
-  test "should validate presence of current step column" do
-    assert !@company.save
-    assert_equal @company.errors.messages, { :my_step => ["can't be blank"] }
-  end
-
   test "should validate step1" do
     @company.my_step = "step1"
     assert !@company.save
