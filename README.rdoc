@@ -15,7 +15,9 @@ Create migration for model:
 
 Setup names of steps that you want to have:
 
-  has_steps :steps => %w{ description kind address }
+  class Company < ActiveRecord::Base
+    has_steps :steps => %w{ description kind address }
+  end
 
 Setup validation for each step if necessary, method should have name like <tt>validate_#{step_name}</tt>:
 

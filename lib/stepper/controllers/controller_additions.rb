@@ -6,6 +6,8 @@ module Stepper
     end
 
     module ClassMethods
+      # Sets up +create+, +update+, +new+ actions for controller and before filter for load resource.
+      # If you use cancan or load resource in other way it will get loaded resource.
       def has_steps(*args)
         include InstanceMethods
         stepper_resource_class.add_before_filter(self, *args)
@@ -19,6 +21,8 @@ module Stepper
 
     module InstanceMethods
 
+      # controller +create+ action
+      # it supports only html responce format for now
       def create
         respond_to do |format|
           if @_stepper_resource_instance.save
@@ -30,8 +34,9 @@ module Stepper
         end
       end
 
+      # controller +update+ action
+      # it supports only html responce format for now
       def update
-
         @_stepper_resource_instance.previous_step!.previous_step! if params[:commit] == t('stepper.previous_step').html_safe
 
         @_stepper_resource_instance.previous_step! if params[:commit] == t('stepper.save').html_safe
@@ -46,11 +51,17 @@ module Stepper
         end
       end
 
+      # controller +new+ action
+      # it supports only html responce format for now
       def new
       end
 
       protected
-
+        # redirects to controller actions depends of commit value
+        #   save -> index
+        #   previous_step -> new
+        #   next_step -> new
+        #   finish -> show
         def redirect_steps
           if params[:commit] == t('stepper.save').html_safe
             redirect_to url_for(sanitized_params.merge(:action => "index"))
@@ -65,6 +76,7 @@ module Stepper
           end
         end
 
+        # removes from params resource name, commit and id
         def sanitized_params
           params.except(@_stepper_name, :commit, :id)
         end
