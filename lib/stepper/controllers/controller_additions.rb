@@ -8,6 +8,14 @@ module Stepper
     module ClassMethods
       # Sets up +create+, +update+, +new+ actions for controller and before filter for load resource.
       # If you use cancan or load resource in other way it will get loaded resource.
+      #
+      # First parameters can be name of resource, for example:
+      #
+      #   class CompaniesController < ApplicationController
+      #     has_steps :company
+      #   end
+      #
+      # It will load or build resource in +@company+ variable
       def has_steps(*args)
         include InstanceMethods
         stepper_resource_class.add_before_filter(self, *args)
