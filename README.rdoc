@@ -78,6 +78,19 @@ Add stepper helper method into the form in view that rendered by new action:
   <%= f.label :kind %>
   <%= f.text_field :kind %>
 
++stepper+ helper creates buttons "Next", "Previous", "Save" and "Finish" as well. You can change button names just add to your locales:
+
+en:
+  stepper:
+    next_step: 'Next step'
+    previous_step: 'Previous step'
+    save: 'Finis later'
+    finish: 'Finish'
+
++next_step+ button validates, saves current step and renders next step of form;
++previous_step+ saves current step and renders previous step of form;
++save+ save current step and redirects to index page;
++finish+ is showed only for last step instead of +next_step+ button and it validates, saves last step and redirects to show.
 == Contributing to stepper
  
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
