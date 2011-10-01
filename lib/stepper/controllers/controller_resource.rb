@@ -1,6 +1,14 @@
 module Stepper
   class ControllerResource
-
+    # Sets up before filter in +controller_class+ for +create+, +update+ and +new+ actions.
+    # First argument can be name of resource.
+    # For example we have +CompaniesController+ and want to load or build resource to +@my_company+ variable:
+    #   add_before_filter CompanyController, :my_company
+    #
+    # First argument it isn't required:
+    #   add_before_filter CompanyController
+    # In this case resource will be loaded or built into +@company+ variable
+    #
     def self.add_before_filter(controller_class, *args)
       resource_name = args.first
       controller_class.send(:before_filter, :only => [:create, :update, :new]) do |controller|

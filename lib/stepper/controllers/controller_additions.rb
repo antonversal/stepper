@@ -12,10 +12,15 @@ module Stepper
       # First parameters can be name of resource, for example:
       #
       #   class CompaniesController < ApplicationController
-      #     has_steps :company
+      #     has_steps :my_company
       #   end
+      # It will load or build resource in +@my_company+ variable
       #
-      # It will load or build resource in +@company+ variable
+      # First argument it isn't required:
+      #   class CompaniesController < ApplicationController
+      #     has_steps
+      #   end
+      # In this case resource will be loaded or built into +@company+ variable
       def has_steps(*args)
         include InstanceMethods
         stepper_resource_class.add_before_filter(self, *args)
