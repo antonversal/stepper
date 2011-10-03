@@ -34,7 +34,7 @@ module Stepper
         #check options
         raise Stepper::StepperException.new("Options for has_steps must be in a hash.") unless options.is_a? Hash
         options.each do |key, value|
-          unless [:current_step_column, :steps].include? key
+          unless [:current_step_column, :steps, :inherit].include? key
             raise Stepper::StepperException.new("Unknown option for has_steps: #{key.inspect} => #{value.inspect}.")
           end
         end
@@ -46,8 +46,10 @@ module Stepper
         self._stepper_current_step_column = options[:current_step_column] || :current_step
 
         class_attribute :_stepper_steps
-        self._stepper_steps= options[:steps]
 
+        self._stepper_steps = []
+        self._stepper_steps = self.try(:superclass).try(:_stepper_steps) if options[:inherit]
+        self._stepper_steps += options[:steps]
         include InstanceMethods
       end
     end
@@ -73,7 +75,7 @@ module Stepper
 
       # returns name of current step
       def stepper_current_step
-        self.send(self.class._stepper_current_step_column)
+        self.send(self.stepper_current_step_column)
       end
 
       alias_method :current_step, :stepper_current_step unless self.respond_to? :current_step
@@ -81,7 +83,7 @@ module Stepper
       # sets up name of current step
       # TODO: reject names that doesn't exists in steps array
       def stepper_current_step=(step)
-        self.send("#{self.class._stepper_current_step_column}=", step)
+        self.send("#{self.stepper_current_step_column}=", step)
       end
 
       alias_method :current_step=, :stepper_current_step= unless self.respond_to? :current_step=
