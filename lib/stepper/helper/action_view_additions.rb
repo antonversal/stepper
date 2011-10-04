@@ -9,7 +9,7 @@ module Stepper
       #     stepper:
       #       next_step: 'Next step'
       #       previous_step: 'Previous step'
-      #       save: 'Finis later'
+      #       save: 'Finish later'
       #       finish: 'Finish'
       #
       # +next_step+ button validates, saves current step and renders next step of form;
