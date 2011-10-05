@@ -5,7 +5,6 @@ module Stepper
 
     def self.included(base)
       base.extend ClassMethods
-      base.validate :current_step_validation
     end
 
     module ClassMethods
@@ -50,6 +49,9 @@ module Stepper
         self._stepper_steps = []
         self._stepper_steps = self.try(:superclass).try(:_stepper_steps) if options[:inherit]
         self._stepper_steps += options[:steps]
+
+        self.validate :current_step_validation
+
         include InstanceMethods
       end
     end
