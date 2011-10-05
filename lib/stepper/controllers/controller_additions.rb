@@ -78,13 +78,13 @@ module Stepper
         #   finish -> show
         def redirect_steps
           if params[:commit] == t('stepper.save').html_safe
-            redirect_to url_for(sanitized_params.merge(:action => "index"))
+            redirect_to :action => "index"
           elsif params[:commit] == t('stepper.previous_step').html_safe and params[:action] == "update"
-            redirect_to url_for(sanitized_params.merge(:action => "new", :id => @_stepper_resource_instance.id))
+            redirect_to :action => "new", :id => @_stepper_resource_instance.id
           elsif params[:commit] == t('stepper.next_step').html_safe
-            redirect_to url_for(sanitized_params.merge(:action => "new", :id => @_stepper_resource_instance.id)), :notice => "Step #{@_stepper_resource_instance.stepper_current_step.humanize} was successfully created."
+            redirect_to({:action => "new", :id => @_stepper_resource_instance.id}, :notice => "Step #{@_stepper_resource_instance.stepper_current_step.humanize} was successfully created.")
           elsif params[:commit] == t('stepper.finish').html_safe
-            redirect_to url_for(sanitized_params.merge(:action => "show", :id => @_stepper_resource_instance.id))
+            redirect_to :action => "show", :id => @_stepper_resource_instance.id
           else
             raise Stepper::StepperException.new("Unknown commit: #{params[:commit]}")
           end
