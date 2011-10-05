@@ -1,9 +1,9 @@
 = Stepper
 
-Stepper is multistep form (wizard) solution for Rails 3.
+Stepper is multistep form (wizard) solution for Rails 3.1.
 Stepper allows you to split up your large form into series of pages that users can navigate through to complete the form and save it state.
 == Installation
-You can use it with Rails 3:
+You can use it with Rails 3.1:
 
   gem install stepper
 == Getting Started
