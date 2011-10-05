@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{stepper}
-  s.version = "0.0.1"
+  s.version = "0.0.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = [%q{Anton Versal}]
-  s.date = %q{2011-09-30}
+  s.date = %q{2011-10-05}
   s.description = %q{Stepper is multistep form (wizard) solution for Rails 3. Stepper allows you to split up your large form into series of pages that users can navigate through to complete the form and save it state.}
   s.email = %q{ant.ver@gmail.com}
   s.extra_rdoc_files = [
@@ -44,6 +44,7 @@ Gem::Specification.new do |s|
     "test/models/assigns_test.rb",
     "test/models/instance_test.rb",
     "test/models/models_test.rb",
+    "test/models/sti_test.rb",
     "test/models/validation_test.rb",
     "test/rails_app/Rakefile",
     "test/rails_app/app/controllers/application_controller.rb",
@@ -51,6 +52,7 @@ Gem::Specification.new do |s|
     "test/rails_app/app/helpers/application_helper.rb",
     "test/rails_app/app/mailers/.gitkeep",
     "test/rails_app/app/models/.gitkeep",
+    "test/rails_app/app/models/big_company.rb",
     "test/rails_app/app/models/company.rb",
     "test/rails_app/app/models/users.rb",
     "test/rails_app/app/views/companies/_step1_step.html.erb",
