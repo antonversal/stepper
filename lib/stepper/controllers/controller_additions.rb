@@ -67,6 +67,7 @@ module Stepper
       # controller +new+ action
       # it supports only html responce format for now
       def new
+        redirect_to :action => :show, :id => @_stepper_resource_instance.id if @_stepper_resource_instance.last_step?
       end
 
       protected
