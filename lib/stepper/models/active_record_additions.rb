@@ -41,14 +41,14 @@ module Stepper
         raise Stepper::StepperException.new(":steps condition can't be blank") if options[:steps].blank?
 
         #set current step column
-        class_attribute :_stepper_current_step_column
-        self._stepper_current_step_column = options[:current_step_column] || :current_step
+        class_attribute :stepper_current_step_column
+        self.stepper_current_step_column = options[:current_step_column] || :current_step
 
-        class_attribute :_stepper_steps
+        class_attribute :stepper_steps
 
-        self._stepper_steps = []
-        self._stepper_steps = self.try(:superclass).try(:_stepper_steps) if options[:inherit]
-        self._stepper_steps += options[:steps]
+        self.stepper_steps = []
+        self.stepper_steps = self.try(:superclass).try(:stepper_steps) || [] if options[:inherit]
+        self.stepper_steps += options[:steps]
 
         self.validate :current_step_validation
 
@@ -58,17 +58,11 @@ module Stepper
 
     module InstanceMethods
 
-      # returns name of current step column
-      def stepper_current_step_column
-        self.class._stepper_current_step_column
+      unless self.respond_to? :steps
+        define_method :steps do
+          self.stepper_steps
+        end
       end
-
-      # returns defined steps array
-      def stepper_steps
-        self.class._stepper_steps
-      end
-
-      alias_method(:steps, :stepper_steps) unless self.respond_to? :steps
 
       # returns index of current step in steps array
       def stepper_current_step_index

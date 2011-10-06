@@ -20,7 +20,7 @@ module Stepper
       # If you want to have other partial for buttons than add partial to: +app/views/stepper/_fields.html.erb+
       def stepper(form)
         resource = self.instance_variable_get :@_stepper_resource_instance
-        current_step_column = resource.class._stepper_current_step_column
+        current_step_column = resource.stepper_current_step_column
         self.render(:partial => "stepper/fields",
                     :locals => { :f => form,
                                  :resource => resource,
