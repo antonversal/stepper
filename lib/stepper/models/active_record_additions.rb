@@ -74,7 +74,7 @@ module Stepper
         self.send(self.stepper_current_step_column)
       end
 
-      alias_method :current_step, :stepper_current_step unless self.respond_to? :current_step
+      #alias_method :current_step, :stepper_current_step unless self.respond_to? :current_step
 
       # sets up name of current step
       # TODO: reject names that doesn't exists in steps array

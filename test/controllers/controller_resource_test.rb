@@ -10,7 +10,7 @@ class ControllerResourceTest < ActiveSupport::TestCase
 
     test "should load resource into instance variable if params[:id] is specified" do
       Company.stubs(:find).with(1).returns(mock_company(:id => 1))
-      @params.merge!(:action => "new", :id => mock_company.id)
+      @params.merge!(:action => "next_step", :id => mock_company.id)
       resource = Stepper::ControllerResource.new(@controller)
       resource.load_resource
       assert_equal @controller.instance_variable_get(:@company), mock_company
@@ -18,7 +18,7 @@ class ControllerResourceTest < ActiveSupport::TestCase
 
     test "should build resource and load into instance variable if params[:id] is not specified" do
       Company.stubs(:new).returns(mock_company)
-      @params.merge!(:action => "new")
+      @params.merge!(:action => "some_action")
       resource = Stepper::ControllerResource.new(@controller)
       resource.load_resource
       assert_equal @controller.instance_variable_get(:@company), mock_company

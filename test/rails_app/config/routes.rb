@@ -1,3 +1,5 @@
 RailsApp::Application.routes.draw do
-  resources :companies
+  resources :companies do
+    get :next_step , :on => :member
+  end
 end

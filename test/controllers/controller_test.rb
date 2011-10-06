@@ -13,24 +13,24 @@ class CompaniesControllerTest < ActionController::TestCase
   end
 
   test "should assign resource if params[:id] exists" do
-    @controller.expects(:render)
+    @controller.stubs(:render)
 
     Company.expects(:find).with('1').returns(mock_company(:last_step? => false))
-    get :new, :id => 1
+    get :next_step, :id => 1
     assert_response :success
     assert_equal assigns(:company), mock_company
   end
 
   test "should get existing assigns" do
-    @controller.expects(:render)
+    @controller.stubs(:render)
     @controller.instance_variable_set(:@company, mock_company(:last_step? => false))
-    get :new, :id => 1
+    get :next_step, :id => 1
     assert_equal assigns(:company), mock_company
   end
 
-  test "new action should redirect to show if company on at the last step" do
+  test "next_step action should redirect to show if company on at the last step" do
     @controller.instance_variable_set(:@company, mock_company(:last_step? => true, :id => "1"))
-    get :new, :id => 1
+    get :next_step, :id => 1
     assert_response :redirect
     assert_redirected_to "http://test.host/companies/1"
   end
@@ -54,7 +54,7 @@ class CompaniesCreateControllerTest < ActionController::TestCase
     mock_company.stubs(:stepper_current_step).returns("step1")
     post(:create, {:company => {:name => "Hina"}, :commit => "Next step"})
     assert_response :redirect
-    assert_redirected_to "http://test.host/companies/new?id=1"
+    assert_redirected_to "http://test.host/companies/1/next_step"
     assert_equal flash[:notice], "Step Step1 was successfully created."
   end
 
@@ -84,7 +84,7 @@ class CompaniesUpdateControllerTest < ActionController::TestCase
     mock_company.stubs(:stepper_current_step).returns("step2")
     put(:update, {:company => {:code => "23"}, :commit => "Next step", :id => 1})
     assert_response :redirect
-    assert_redirected_to "http://test.host/companies/new?id=1"
+    assert_redirected_to "http://test.host/companies/1/next_step"
     assert_equal flash[:notice], "Step Step2 was successfully created."
   end
 
@@ -100,7 +100,7 @@ class CompaniesUpdateControllerTest < ActionController::TestCase
     mock_company.stubs(:current_step).returns("step2")
     put(:update, {:company => {:code => "23"}, :commit => "Previous step", :id => 1})
     assert_response :redirect
-    assert_redirected_to "http://test.host/companies/new?id=1"
+    assert_redirected_to "http://test.host/companies/1/next_step"
   end
 
   test "should redirect to show if commit 'Finish form'" do

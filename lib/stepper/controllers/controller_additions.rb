@@ -42,7 +42,7 @@ module Stepper
             format.html { redirect_steps }
           else
             @_stepper_resource_instance.previous_step!
-            format.html { render :action => "new" }
+            format.html { render :action => "next_step" }
           end
         end
       end
@@ -59,7 +59,7 @@ module Stepper
             format.html { redirect_steps }
           else
             @_stepper_resource_instance.previous_step!
-            format.html { render :action => "new" }
+            format.html { render :action => "next_step" }
           end
         end
       end
@@ -67,7 +67,17 @@ module Stepper
       # controller +new+ action
       # it supports only html responce format for now
       def new
-        redirect_to :action => :show, :id => @_stepper_resource_instance.id if @_stepper_resource_instance.last_step?
+
+      end
+
+      # controller +new+ action
+      # it supports only html responce format for now
+      def next_step
+        if @_stepper_resource_instance.last_step?
+          redirect_to :action => :show, :id => @_stepper_resource_instance.id
+        else
+          render :action => :new
+        end
       end
 
       protected
@@ -80,9 +90,9 @@ module Stepper
           if params[:commit] == t('stepper.save').html_safe
             redirect_to :action => "index"
           elsif params[:commit] == t('stepper.previous_step').html_safe and params[:action] == "update"
-            redirect_to :action => "new", :id => @_stepper_resource_instance.id
+            redirect_to :action => "next_step", :id => @_stepper_resource_instance.id
           elsif params[:commit] == t('stepper.next_step').html_safe
-            redirect_to({:action => "new", :id => @_stepper_resource_instance.id}, :notice => "Step #{@_stepper_resource_instance.stepper_current_step.humanize} was successfully created.")
+            redirect_to({:action => "next_step", :id => @_stepper_resource_instance.id}, :notice => "Step #{@_stepper_resource_instance.stepper_current_step.humanize} was successfully created.")
           elsif params[:commit] == t('stepper.finish').html_safe
             redirect_to :action => "show", :id => @_stepper_resource_instance.id
           else

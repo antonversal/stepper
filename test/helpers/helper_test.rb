@@ -14,7 +14,7 @@ class StepperButtonsTest < ActionController::IntegrationTest
 
   test "second step should have 'finish later', 'previous step' and 'next step' buttons" do
     company = Company.create!(:name => "My company", :my_step => "step1")
-    get new_company_path(:id => company.id)
+    get next_step_company_path(:id => company.id)
 
     assert_select "li.next_step" do
       assert_select "input[value='Next step']"
@@ -31,7 +31,7 @@ class StepperButtonsTest < ActionController::IntegrationTest
 
   test "last step should have 'finish later', 'previous step' and 'finish' buttons" do
     company = Company.create!(:name => "My company", :code => "04108", :my_step => "step2")
-    get new_company_path(:id => company.id)
+    get next_step_company_path(:id => company.id)
 
     assert_select "li.finish" do
       assert_select "input[value='Finish form']"
