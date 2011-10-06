@@ -5,6 +5,7 @@ class CompaniesControllerTest < ActionController::TestCase
 
   test "should raise error if commit is unknown" do
     Company.expects(:new).with({'name' => 'Hina'}).returns(mock_company)
+    mock_company.expects(:attributes=).with({'name' => 'Hina'}).returns(true)
     mock_company.expects(:save).returns(true)
     mock_company.stubs(:id).returns(1)
     assert_raise Stepper::StepperException do
@@ -46,6 +47,7 @@ class CompaniesCreateControllerTest < ActionController::TestCase
 
   setup do
     Company.expects(:new).with({'name' => 'Hina'}).returns(mock_company)
+    mock_company.expects(:attributes=).with({'name' => 'Hina'}).returns(true)
     mock_company.expects(:save).returns(true)
     mock_company.stubs(:id).returns(1)
   end
@@ -124,6 +126,7 @@ class CompaniesInvalidParamsControllerTest < ActionController::TestCase
 
   test "should create action render to new action if object.save returns false" do
     Company.expects(:new).with({'name' => 'Hina'}).returns(mock_company)
+    mock_company.expects(:attributes=).with({'name' => 'Hina'}).returns(true)
     mock_company.expects(:save).returns(false)
     mock_company.expects(:previous_step!)
     post(:create, {:company => {:name => "Hina"}, :commit => "Next step"})

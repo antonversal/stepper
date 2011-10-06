@@ -42,7 +42,7 @@ module Stepper
             format.html { redirect_steps }
           else
             @_stepper_resource_instance.previous_step!
-            format.html { render :action => "next_step" }
+            format.html { render :action => "new" }
           end
         end
       end
@@ -59,7 +59,7 @@ module Stepper
             format.html { redirect_steps }
           else
             @_stepper_resource_instance.previous_step!
-            format.html { render :action => "next_step" }
+            format.html { render :action => "new" }
           end
         end
       end
