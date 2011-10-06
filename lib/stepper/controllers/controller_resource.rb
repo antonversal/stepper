@@ -26,6 +26,8 @@ module Stepper
 
     def load_resource
       self.resource_instance ||= load_resource_instance
+      self.resource_instance.attributes = @params[name] unless @params[name].blank?
+      self.resource_instance
     end
 
     def load_resource_instance
@@ -37,7 +39,6 @@ module Stepper
         else
           resource_class.new
         end
-        resource.attributes = @params[name] unless @params[name].blank?
       end
       resource
     end
