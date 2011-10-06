@@ -79,10 +79,8 @@ module Stepper
       # sets up name of current step
       # TODO: reject names that doesn't exists in steps array
       def stepper_current_step=(step)
-        self.send("#{self.stepper_current_step_column}=", step)
+        self.send("#{self.stepper_current_step_column.to_s}=", step)
       end
-
-      alias_method :current_step=, :stepper_current_step= unless self.respond_to? :current_step=
 
       # Use to check current step or given step is last step
       #   last_step?("address")
