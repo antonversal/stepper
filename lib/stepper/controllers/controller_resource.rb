@@ -10,8 +10,10 @@ module Stepper
     # In this case resource will be loaded or built into +@company+ variable
     #
     def self.add_before_filter(controller_class, *args)
-      resource_name = args.first
+      resource_name = args.first if args.first.is_a?(Symbol) or args.first.is_a?(String)
+      options = args.extract_options!
       controller_class.send(:before_filter, :only => [:create, :update, :new, :next_step]) do |controller|
+        controller.instance_variable_set :@_stepper_redirect_to, options[:redirect_to]
         controller_resource = controller.class.stepper_resource_class.new(controller, resource_name)
         controller.instance_variable_set :@_stepper_resource_instance, controller_resource.load_resource
         controller.instance_variable_set :@_stepper_name, controller_resource.name
