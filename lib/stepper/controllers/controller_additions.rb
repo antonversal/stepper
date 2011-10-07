@@ -86,15 +86,21 @@ module Stepper
         #   previous_step -> new
         #   next_step -> new
         #   finish -> show
+
         def redirect_steps
+          options, response_status = redirect_steps_options
+          redirect_to options, response_status
+        end
+
+        def redirect_steps_options
           if params[:commit] == t('stepper.save').html_safe
-            redirect_to :action => "index"
+            [{:action => "index"}, {}]
           elsif params[:commit] == t('stepper.previous_step').html_safe and params[:action] == "update"
-            redirect_to :action => "next_step", :id => @_stepper_resource_instance.id
+            [{:action => "next_step", :id => @_stepper_resource_instance.id},{}]
           elsif params[:commit] == t('stepper.next_step').html_safe
-            redirect_to({:action => "next_step", :id => @_stepper_resource_instance.id}, :notice => "Step #{@_stepper_resource_instance.stepper_current_step.humanize} was successfully created.")
+            [{:action => "next_step", :id => @_stepper_resource_instance.id}, {:notice => "Step #{@_stepper_resource_instance.stepper_current_step.humanize} was successfully created."}]
           elsif params[:commit] == t('stepper.finish').html_safe
-            redirect_to :action => "show", :id => @_stepper_resource_instance.id
+            [{:action => "show", :id => @_stepper_resource_instance.id},{}]
           else
             raise Stepper::StepperException.new("Unknown commit: #{params[:commit]}")
           end
