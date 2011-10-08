@@ -10,6 +10,7 @@ class AssignsModelTest < ActiveSupport::TestCase
   end
 
   test "should assign default steps" do
-    assert_equal Company.stepper_steps, ["step1", "step2", "step3"]
+    company = Company.new
+    assert_equal company.stepper_steps, ["step1", "step2", "step3"]
   end
 end
