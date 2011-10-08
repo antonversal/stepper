@@ -39,14 +39,14 @@ Setup validation for each step if necessary, method should have name like <tt>va
 Now Your model ready for multistep form!
 === Configuring controller
 
-Stepper use +update+, +create+ and +new+ action.
+Stepper use +update+, +create+, +new+ and +next_step+ actions.
 
 For controller you need just add +has_steps+ method:
   class CompaniesController < ApplicationController
     has_steps
   end
 
-And you should have +show+ action because stepper redirects to it when last step finished. It will be configurable in a feature.
+And you should have +show+ action because stepper redirects to it when last step finished by default. For more options see method documentation.
 === Configuring view
 
 Add stepper helper method into the form in view that rendered by new action:

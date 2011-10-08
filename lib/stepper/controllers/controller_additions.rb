@@ -21,6 +21,20 @@ module Stepper
       #     has_steps
       #   end
       # In this case resource will be loaded or built into +@company+ variable
+      #
+      # You can setup redirection for each +save+, +previous_step+, +next_step+ and +finish+ step to other action than default,
+      # options should have +after+ prefix:
+      #
+      #   class CompaniesController < ApplicationController
+      #     has_steps :redirect_to => { :after_save => {:action => :new} }
+      #   end
+      #
+      # You can set proc that will be executed for current controller:
+      #
+      #   class CompaniesController < ApplicationController
+      #     has_steps :redirect_to => { :after_finish => proc{|controller, resource| controller.show_companies_url(resource)} }
+      #   end
+
       def has_steps(*args)
         include InstanceMethods
         stepper_resource_class.add_before_filter(self, *args)
@@ -82,6 +96,7 @@ module Stepper
 
       protected
 
+        # default redirection actions
         def default_redirection
           {
             :next_step      => {:action => "next_step", :id => @_stepper_resource_instance.id},
@@ -124,7 +139,6 @@ module Stepper
           else
             redirection
           end || default_redirection[option]
-
         end
 
         # removes from params resource name, commit and id
