@@ -14,7 +14,6 @@ class CompaniesCreateControllerTest < ActionController::TestCase
     post(:create, {:company => {:name => "Hina"}, :commit => "Next step"})
     assert_response :redirect
     assert_redirected_to "http://test.host/companies/1/next_step"
-    assert_equal flash[:notice], "Step Step1 was successfully created."
   end
 
   test "should redirect to index if commit 'Finish later'" do
