@@ -33,7 +33,7 @@ module Stepper
         #check options
         raise Stepper::StepperException.new("Options for has_steps must be in a hash.") unless options.is_a? Hash
         options.each do |key, value|
-          unless [:current_step_column, :steps, :inherit].include? key
+          unless [:current_step_column, :steps].include? key
             raise Stepper::StepperException.new("Unknown option for has_steps: #{key.inspect} => #{value.inspect}.")
           end
         end
@@ -41,14 +41,11 @@ module Stepper
         raise Stepper::StepperException.new(":steps condition can't be blank") if options[:steps].blank?
 
         #set current step column
-        class_attribute :stepper_current_step_column
+        class_attribute :stepper_current_step_column, :instance_writer => false
         self.stepper_current_step_column = options[:current_step_column] || :current_step
 
-        class_attribute :stepper_steps
-
-        self.stepper_steps = []
-        self.stepper_steps = self.try(:superclass).try(:stepper_steps) || [] if options[:inherit]
-        self.stepper_steps += options[:steps]
+        class_attribute :stepper_options, :instance_writer => false
+        self.stepper_options = options
 
         self.validate :current_step_validation
 
@@ -57,6 +54,9 @@ module Stepper
     end
 
     module InstanceMethods
+      def stepper_steps
+        self.stepper_options[:steps]
+      end
 
       unless self.respond_to? :steps
         define_method :steps do
