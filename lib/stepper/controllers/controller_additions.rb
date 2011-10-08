@@ -81,6 +81,16 @@ module Stepper
       end
 
       protected
+
+        def default_redirection
+          {
+            :next_step      => {:action => "next_step", :id => @_stepper_resource_instance.id},
+            :previous_step  => {:action => "next_step"},
+            :save           => {:action => "index"},
+            :finish         => {:action => "show", :id => @_stepper_resource_instance.id}
+          }
+        end
+
         # redirects to controller actions depends of commit value
         #   save -> index
         #   previous_step -> new
@@ -93,25 +103,28 @@ module Stepper
         end
 
         def redirect_steps_options
-          if params[:commit] == t('stepper.save').html_safe
-            [ extract_redirect_params(@_stepper_redirect_to[:after_save]) || {:action => "index"}, {}]
-          elsif params[:commit] == t('stepper.previous_step').html_safe and params[:action] == "update"
-            [{:action => "next_step", :id => @_stepper_resource_instance.id},{}]
-          elsif params[:commit] == t('stepper.next_step').html_safe
-            [{:action => "next_step", :id => @_stepper_resource_instance.id}, {:notice => "Step #{@_stepper_resource_instance.stepper_current_step.humanize} was successfully created."}]
-          elsif params[:commit] == t('stepper.finish').html_safe
-            [ extract_redirect_params(@_stepper_redirect_to[:after_finish]) || {:action => "show", :id => @_stepper_resource_instance.id}, {}]
-          else
-            raise Stepper::StepperException.new("Unknown commit: #{params[:commit]}")
+          case params[:commit]
+            when t('stepper.save')
+              [ extract_redirect_params(:save), {}]
+            when t('stepper.previous_step')
+              [ extract_redirect_params(:previous_step), {}]
+            when t('stepper.next_step')
+              [ extract_redirect_params(:next_step), {}]
+            when t('stepper.finish')
+              [ extract_redirect_params(:finish), {}]
+            else
+             raise Stepper::StepperException.new("Unknown commit: #{params[:commit]}")
           end
         end
 
-        def extract_redirect_params(arg)
-          if arg.is_a?(Proc)
-            arg.call(self, @_stepper_resource_instance)
+        def extract_redirect_params(option)
+          redirection = @_stepper_redirect_to["after_#{option.to_s}".to_sym]
+          if redirection.is_a?(Proc)
+            redirection.call(self, @_stepper_resource_instance)
           else
-            arg
-          end
+            redirection
+          end || default_redirection[option]
+
         end
 
         # removes from params resource name, commit and id
