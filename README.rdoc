@@ -1,7 +1,7 @@
 = Stepper
 
 Stepper is multistep form (wizard) solution for Rails 3.1.
-Stepper allows you to split up your large form into series of pages that users can navigate through to complete the form and save it state.
+Stepper allows you to split up your large form into series of pages that users can navigate through to complete the form and saving it's state.
 == Installation
 You can use it with Rails 3.1:
 
@@ -36,21 +36,21 @@ Setup validation for each step if necessary, method should have name like <tt>va
     self.validates_presence_of :kind
   end
 
-Now Your model ready for multistep form!
+Now your model supports a multistep form!
 === Configuring controller
 
-Stepper use +update+, +create+, +new+ and +next_step+ actions, so you should have such routes:
+Stepper uses +update+, +create+, +new+ and +next_step+ actions, so you should have the following routes:
 
   resources :companies do
     get :next_step, :on => :member
   end
 
-For controller you need just add +has_steps+ method:
+For your controller you need just add the +has_steps+ method:
   class CompaniesController < ApplicationController
     has_steps
   end
 
-And you should have +show+ action because stepper redirects to it when last step finished by default. For more options see method documentation.
+And you should have a +show+ action because stepper redirects to it after finishing the last step by default. For more options see method documentation.
 === Configuring view
 
 Add stepper helper method into the form in view that rendered by new action:
@@ -59,16 +59,16 @@ Add stepper helper method into the form in view that rendered by new action:
     <%= stepper f %>
   <% end %>
 
-+stepper+ helper renders partial according to the current step of form. Partials should have name like <tt>#{step_name}_step</tt>:
+The +stepper+ helper renders partial according to the current step of form. Partials should be named like <tt>#{step_name}_step</tt>:
 
-+name_step.html.erb+
++_name_step.html.erb+
 
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :desc %>
   <%= f.text_field :desc %>
 
-+city_step.html.erb+
++_city_step.html.erb+
 
   <%= f.label :city %>
   <%= f.text_field :city %>
@@ -77,12 +77,12 @@ Add stepper helper method into the form in view that rendered by new action:
   <%= f.label :city %>
   <%= f.text_field :city %>
 
-+kind_step.html.erb+
++_kind_step.html.erb+
 
   <%= f.label :kind %>
   <%= f.text_field :kind %>
 
-+stepper+ helper creates buttons "Next", "Previous", "Save" and "Finish" as well. You can change button names just add to your locales:
++stepper+ helper creates buttons "Next", "Previous", "Save" and "Finish" as well. You can change button names by adding the following to your locales:
 
   en:
     stepper:
@@ -96,7 +96,7 @@ Add stepper helper method into the form in view that rendered by new action:
 +save+ save current step and redirects to index page;
 +finish+ is showed only for last step instead of +next_step+ button and it validates, saves last step and redirects to show.
 
-If you want to have other partial for buttons than add partial to: +app/views/stepper/_fields.html.erb+
+If you want to have other partials for buttons than add your partial to: +app/views/stepper/_fields.html.erb+
 
 == Contributing to stepper
  
