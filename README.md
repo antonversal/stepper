@@ -75,7 +75,7 @@ And you should have a +show+ action because stepper redirects to it after finish
 
 Add stepper helper method into the form in view that rendered by new action:
 
-```ruby
+```erb
   <%= form_for(@company) do |f| %>
     <%= stepper f %>
   <% end %>
@@ -85,7 +85,7 @@ The `stepper` helper renders partial according to the current step of form. Part
 
 `_name_step.html.erb`
 
-```ruby
+```erb
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :desc %>
@@ -94,7 +94,7 @@ The `stepper` helper renders partial according to the current step of form. Part
 
 `_city_step.html.erb`
 
-```ruby
+```erb
   <%= f.label :city %>
   <%= f.text_field :city %>
   <%= f.label :country %>
@@ -105,7 +105,7 @@ The `stepper` helper renders partial according to the current step of form. Part
 
 `_kind_step.html.erb`
 
-```ruby
+```erb
   <%= f.label :kind %>
   <%= f.text_field :kind %>
 ```
@@ -140,6 +140,6 @@ If you want to have other partials for buttons than add your partial to: `app/vi
 
 ## Copyright
 
-Copyright (c) 2011 Anton Versal. See LICENSE.txt for
+Copyright (c) 2012 Anton Versal. See LICENSE.txt for
 further details.
 
