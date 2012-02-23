@@ -32,17 +32,32 @@ Rake::TestTask.new(:test) do |test|
   test.verbose = true
 end
 
-require 'rcov/rcovtask'
-Rcov::RcovTask.new do |test|
-  test.libs << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
-  test.rcov_opts << '--exclude "gems/*"'
-end
-
 task :default => :test
 
-require 'rake/rdoctask'
+begin
+  require 'rcov/rcovtask'
+  
+  Rcov::RcovTask.new do |test|
+    test.libs << 'test'
+    test.pattern = 'test/**/test_*.rb'
+    test.verbose = true
+    test.rcov_opts << '--exclude "gems/*"'
+  end
+rescue LoadError => e
+end
+
+begin
+  require "simplecov"
+  
+  desc "Execute tests with coverage report"
+  task :rcov do
+    ENV["COVERAGE"]="true"
+    Rake::Task["test"].execute
+  end
+rescue LoadError
+end
+
+require 'rdoc/task'
 Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
