@@ -36,7 +36,7 @@ task :default => :test
 
 begin
   require 'rcov/rcovtask'
-  
+
   Rcov::RcovTask.new do |test|
     test.libs << 'test'
     test.pattern = 'test/**/test_*.rb'
@@ -48,7 +48,7 @@ end
 
 begin
   require "simplecov"
-  
+
   desc "Execute tests with coverage report"
   task :rcov do
     ENV["COVERAGE"]="true"

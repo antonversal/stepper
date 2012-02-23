@@ -107,27 +107,25 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rails>, [">= 3.1.0"])
-      s.add_development_dependency(%q<ruby-debug19>, [">= 0"])
       s.add_development_dependency(%q<sqlite3>, [">= 0"])
       s.add_development_dependency(%q<shoulda>, [">= 0"])
       s.add_development_dependency(%q<bundler>, [">= 1.0.0"])
       s.add_development_dependency(%q<jeweler>, [">= 1.6.4"])
       if RUBY_VERSION <= "1.9"
-        s.add_development_dependency(%q<rcov>, [">= 0"]) 
+        s.add_development_dependency(%q<rcov>, [">= 0"])
       else
-        s.add_development_dependency(%q<simplecov>, [">= 0"]) 
+        s.add_development_dependency(%q<simplecov>, [">= 0"])
       end
       s.add_development_dependency(%q<mocha>, [">= 0"])
       s.add_development_dependency(%q<capybara>, [">= 0"])
       s.add_development_dependency(%q<launchy>, [">= 0"])
-      
+
       add_dependencies_for_old_rubygems = false
     end
   end
-  
+
   if add_dependencies_for_old_rubygems
     s.add_dependency(%q<rails>, [">= 3.1.0"])
-    s.add_dependency(%q<ruby-debug19>, [">= 0"])
     s.add_dependency(%q<sqlite3>, [">= 0"])
     s.add_dependency(%q<shoulda>, [">= 0"])
     s.add_dependency(%q<bundler>, [">= 1.0.0"])

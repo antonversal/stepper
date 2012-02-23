@@ -17,7 +17,7 @@ if ENV["COVERAGE"]
 end
 
 require 'test/unit'
-require 'ruby-debug'
+require 'ruby-debug' unless ENV["CI"]
 require 'shoulda'
 require 'stepper'
 require "rails_app/config/environment"
