@@ -9,6 +9,13 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
+if ENV["COVERAGE"]
+  require "simplecov"
+  SimpleCov.start "rails" do
+    add_filter "/test/"
+  end
+end
+
 require 'test/unit'
 require 'ruby-debug' unless ENV["CI"]
 require 'shoulda'
