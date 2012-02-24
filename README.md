@@ -7,7 +7,7 @@ Stepper allows you to split up your large form into series of pages that users c
 
 ## Installation
 
-You can use it with Rails 3.1:
+You can use it with Rails >= 3.1:
 
 `gem install stepper`
 
